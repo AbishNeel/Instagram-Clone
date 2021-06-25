@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Instagram</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+
+    <header>
+      <div class="header-box">
+
+        <a href="#">Instagram</a>
+
+        <input type="search" name="" value="" placeholder="Search">
+        <div class="header-btns">
+          <button type="button" > <img src="{% static 'img/home.png' %}" alt=""> </button>
+          <button type="button" > <img src="{% static 'img/add.png' %}" alt=""> </button>
+          <button type="button" > <img src="{% static 'img/profile.png' %}" alt="" id="profile-btn"> </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="menu-container ">
+      <div class="">
+
+        <div class="menu-box" id="menu-box">
+          <a href="/profile/">Profile</a>
+          <a href="#">Saved</a>
+          <a href="/user_logout/">Logout</a>
+
+        </div>
+
+
+      </div>
+    </div>
+
+    <section class="main">
+
+      <div class="main-1">
+
+        <div class="stories-container">
+
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" name="caption" value="" placeholder="Caption">
+            <input type="file" name="file" value="">
+
+            <button type="submit" name="button">Post</button>
+
+          </form>
+
+        </div>
+
+        {% for obj in all_posts %}
+        <div class="post-container">
+
+          <div class="post-header">
+
+            <a href="#">
+              <img src="{% static 'img/profile.png' %}" alt="">
+              <span>{{obj.user.username}}</span>
+            </a>
+
+            <button type="button" name="button">
+              <img src="img/more.png" alt="">
+            </button>
+
+          </div>
+          
+          <div class="post-content">
+            {% if obj.type == "image" %}
+            <img src="{{obj.file.url}}" alt="">
+            {% else %}
+            <video src="{{obj.file.url}}" autoplay muted>
+
+            </video>
+            {% endif %}
+          </div>
+
+          <div class="action-container">
+            <button type="button" name="button" class="like-btn"> <img src="{% static 'img/like.png' %}" alt=""> </button>
+            <button type="button" name="button"> <img src="{% static 'img/comment.png' %}" alt=""> </button>
+            <button type="button" name="button"> <img src="{% static 'img/share.png' %}" alt=""> </button>
+            <button type="button" name="button"> <img src="{% static 'img/bookmark.png' %}" alt=""> </button>
+
+          </div>
+
+          <div class="likes-comments">
+
+            <span>{{obj.no_of_likes}} likes</span>
+            <p><a href="">{{obj.user.username}}</a>{{obj.caption}}</p>
+            <p><a href="">xyz</a>Comment goes here.</p>
+          </div>
+
+          <form class="comment-form" action="index.html" method="post">
+            <input type="text" name="" value="" placeholder="Add Comments">
+            <button type="submit" name="button">Post</button>
+          </form>
+
+        </div>
+        {% endfor %}
+
+      </div>
+
+
+      <div class="main-2">
+
+      </div>
+
+    </section>
+
+
+    <script src="{% static 'js/home.js' %}" charset="utf-8"></script>
+
+  </body>
+</html>

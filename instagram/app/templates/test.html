@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" dir ="ltr">
+<head>
+    <meta charset="UTF-8" >
+    <title>Sign-up</title>
+</head>
+<body>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <input type="email" name="email" value="" placeholder="E-mail">
+        <button type="submit">Sign up</button>
+    </form>
+    <h1> This is the sign up page</h1>
+    
+</body>
+</html>

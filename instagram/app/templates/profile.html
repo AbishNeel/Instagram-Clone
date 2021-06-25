@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Instagram</title>
+		<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Lato:wght@100;300;400;700;900&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div class="modal">
+			<span class="close-modal-btn clickable">&times; </span>
+			<div class="modal-content">
+				<div class="post-container">
+					<div class="post-content">
+						<img src="https://source.unsplash.com/random/500x500" alt="" />
+					</div>
+					<div class="details-container">
+						<div class="post-header">
+							<a href="#">
+								<img
+									src="https://source.unsplash.com/random/300x300?sig=2"
+									alt=""
+								/>
+								<span>xyz_123</span>
+							</a>
+
+							<button type="button" name="button">
+								<img src="{% static 'img/more.png' %}" alt="" />
+							</button>
+						</div>
+						<div class="likes-comments">
+							<p><a href="">abc_456</a>Caption goes here.</p>
+							<p><a href="">abc_456</a>Comment goes here.</p>
+						</div>
+						<div class="action-container">
+							<div class="button-container">
+								<button type="button" name="button" class="like-btn">
+									<img src="img/like.png" alt="" />
+								</button>
+								<button type="button" name="button">
+									<img src="img/comment.png" alt="" />
+								</button>
+								<button type="button" name="button">
+									<img src="img/share.png" alt="" />
+								</button>
+								<button type="button" name="button">
+									<img src="img/bookmark.png" alt="" />
+								</button>
+							</div>
+							<span>120 likes</span>
+						</div>
+						<form class="comment-form" action="index.html" method="post">
+							<input type="text" name="" value="" placeholder="Add Comments" />
+							<button type="submit" name="button">Post</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<header>
+			<div class="header-box">
+				<a href="/explore/">Instagram</a>
+
+				<input type="search" name="" value="" placeholder="Search" />
+				<div class="header-btns">
+					<!-- <a href="home.html"> <img src="img/home.png" alt=""></a> -->
+					<button type="button"><img src="img/home.png" alt="" /></button>
+					<button type="button"><img src="img/add.png" alt="" /></button>
+					<button type="button">
+						<img
+							src="https://source.unsplash.com/random/300x300?sig=2"
+							alt=""
+							id="profile-btn"
+						/>
+					</button>
+				</div>
+			</div>
+		</header>
+
+		<div class="menu-container ">
+			<div class="">
+	  
+			  <div class="menu-box" id="menu-box">
+				<a href="#">Profile</a>
+				<a href="#">Saved</a>
+				<a href="/user_logout/">Logout</a>
+	  
+			  </div>
+	  
+	  
+			</div>
+		  </div>
+
+		<div class="main">
+			<section class="profile">
+				<div class="profile-img-container">
+					<img
+						src="https:source.unsplash.com/random/300x300?sig=2"
+						alt=""
+						width="150px"
+						height="150px"
+					/>
+				</div>
+				
+				<div class="profile-info-container">
+					<div class="row-1">
+						<h4>{{context.user_info_obj.user.username}}</h4>
+						<button class="clickable" onclick="window.location.href='/editprofile/'">Edit Profile</button>
+						<img
+							src="{% static 'img/settings.png' %}"
+							alt=""
+							width="25px"
+							height="25px"
+							class="clickable"
+						/>
+					</div>
+					<div class="row-2">
+						<h6><span>{{context.user_info_obj.no_of_posts}}</span> posts</h6>
+						<h6><span>{{context.user_info_obj.followers}}</span> followers</h6>
+						<h6><span>{{context.user_info_obj.following}}</span> following</h6>
+					</div>
+					<div class="row-3">
+						<h4>{{context.user_info_obj.user.first_name}}</h4>
+						<p>{{context.user_info_obj.bio}}</p>
+					</div>
+				</div>
+			</section>
+
+			<section class="posts">
+				<nav class="post-navbar">
+					<span class="nav-tab active-nav-tab clickable">Posts</span>
+					<span class="nav-tab clickable">Saved</span>
+				</nav>
+
+				<div class="img-grid">
+					{% for i in context.posts %}
+					<div class="img-wrapper clickable">
+						{% if i.type == "image" %}
+						<img
+							src="{{i.file.url}}"
+							alt=""
+							data-catid="{{i.id}}"
+						/>
+						{% else %}
+						<img src = "{% static 'img/liked.png'%}" alt="" width="25px"
+						height="25px">
+						{% endif %}
+					</div>
+					{% endfor %}
+				</div>
+			</section>
+		</div>
+
+		<script src="{% static 'js/profile.js' %}"></script>
+		<script src="{% static 'js/home.js' %}"></script>
+	</body>
+</html>
